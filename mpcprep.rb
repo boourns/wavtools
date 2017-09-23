@@ -1,5 +1,6 @@
 # recursively finds files that need to be renamed in order to be accessible from MPC1000
 # which has max filename length of 16
+# also fixes file format to 16 bits / 44100hz
 #
 require 'byebug'
 require 'fileutils'
@@ -62,10 +63,18 @@ def check(files)
   end
 end
 
+def fixformat(files)
+  files.each do |file|
+    `sox #{file} -b 16 -r 44100 out.wav`
+    FileUtils.mv('out.wav', file)
+  end
+end
+
 def enter(dirname)
   puts "Entering #{dirname}"
   Dir.chdir(dirname) do |dir|
     check(Dir['*.wav'])
+    fixformat(Dir['*.wav'])
     dirs = Dir.glob('*').select { |f| File.directory? f }
     dirs.each do |d|
       enter(d)
