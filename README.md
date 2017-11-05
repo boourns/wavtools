@@ -1,6 +1,9 @@
 # wavtools
 little audio tools
 
+## Requirements
+`sox` and a semi-recent version of `ruby` needs to be installed and available.  I use `brew install sox` on my laptop.
+
 ## import.sh
 Fixes up a multitrack wave session (tailored for Behringer UFX1604 in particular)
 - deletes silence
