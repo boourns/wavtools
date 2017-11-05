@@ -65,14 +65,20 @@ end
 
 def fixformat(files)
   files.each do |file|
-    `sox #{file} -b 16 -r 44100 out.wav`
-    FileUtils.mv('out.wav', file)
+    `sox "#{file}" -b 16 -r 44100 out.wav`
+    if File.exists?('out.wav')
+      FileUtils.mv('out.wav', file)
+    else
+      # sox failedd, delete original file
+      `rm -- "#{file}"`
+    end
   end
 end
 
 def enter(dirname)
   puts "Entering #{dirname}"
   Dir.chdir(dirname) do |dir|
+    `chmod 755 .`
     check(Dir['*.wav'])
     fixformat(Dir['*.wav'])
     dirs = Dir.glob('*').select { |f| File.directory? f }

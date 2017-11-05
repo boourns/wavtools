@@ -7,6 +7,11 @@ SCRIPTPATH=`dirname $0`
 
 ruby $SCRIPTPATH/delsilence.rb
 
+if [ -f "Chan_09.wav" -a -f "Chan_10.wav" ]; then
+  echo "Joining 9 and 10 into Chans_9_10.wav"
+  $SCRIPTPATH/join.sh Chan_09.wav Chan_10.wav Chans_9_10.wav
+fi
+
 if [ -f "Chan_11.wav" -a -f "Chan_12.wav" ]; then
   echo "Joining 11 and 12 into Chans_11_12.wav"
   $SCRIPTPATH/join.sh Chan_11.wav Chan_12.wav Chans_11_12.wav
