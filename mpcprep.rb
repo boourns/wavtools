@@ -2,7 +2,6 @@
 # which has max filename length of 16
 # also fixes file format to 16 bits / 44100hz
 #
-require 'byebug'
 require 'fileutils'
 
 def same(str1, str2)
